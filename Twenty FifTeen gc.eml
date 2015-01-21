@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="NetworkTables.jar" scope="COMPILE">
+		<srcroot url="jar://$USER_HOME$/wpilib/java/current/lib/NetworkTables-sources.jar!/"/>
+	</lib>
+	<lib name="WPILib.jar" scope="COMPILE">
+		<srcroot url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib-sources.jar!/"/>
+	</lib>
+	<levels>
+		<level name="FRC" value="project"/>
+	</levels>
+</component>

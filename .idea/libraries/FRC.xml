@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="FRC">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/wpilib/java/current/lib/NetworkTables.jar!/" />
+      <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/wpilib/java/current/javadoc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/wpilib/java/current/lib/NetworkTables-sources.jar!/" />
+      <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
