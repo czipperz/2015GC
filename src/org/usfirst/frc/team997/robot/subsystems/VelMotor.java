@@ -21,11 +21,13 @@ public class VelMotor {
     private double desiredVelocity;
 	private double currentCurrent;
 	private double calibrationFactor;
-    public VelMotor(SpeedController motor, Encoder encoder, double calibrationFac) {
+	private String name;
+    public VelMotor(SpeedController motor, Encoder encoder, double calibrationFac, String name) {
 		myMotor = motor;
 		myEncoder = encoder;
 		calibrationFactor = calibrationFac;
 		desiredVelocity = 0;
+		this.name = name;
 	}
     private double deadband(double a, double band) {
 		if (Math.abs(a)<band) {
@@ -41,14 +43,28 @@ public class VelMotor {
 			update();
 		}
 	};
+	
+	private double getEncoder() {
+		//return myEncoder.getRate();
+		return currentCurrent;
+	}
 	private void update() {
-		double error = deadband((desiredVelocity - myEncoder.getRate()), .05);
-		currentCurrent = max(currentCurrent + (error*calibrationFactor),1);
-		myMotor.set(currentCurrent);
-		SmartDashboard.putNumber("encoderRate",myEncoder.getRate());
-		SmartDashboard.putNumber("encoderCounts" ,myEncoder.get());
-		SmartDashboard.putNumber("currentCurrent" ,currentCurrent);
-		SmartDashboard.putNumber("desiredVel(vel)", desiredVelocity);
+		double encoderRate = getEncoder();
+		double error = deadband((desiredVelocity - encoderRate), .05);
+		
+		
+		SmartDashboard.putNumber(name + "error", error);
+		
+		double adjustedError = error*calibrationFactor;
+		
+		SmartDashboard.putNumber(name + "adjustederror", adjustedError);
+
+		currentCurrent = max(currentCurrent + adjustedError,1);
+		 
+		myMotor.set(deadband(currentCurrent, .05));
+		SmartDashboard.putNumber(name +"encoderRate",encoderRate);
+		SmartDashboard.putNumber(name +"currentCurrent" ,currentCurrent);
+		SmartDashboard.putNumber(name +"desiredVel(vel)", desiredVelocity);
 	
 	}
 	public double max(double a, double max){

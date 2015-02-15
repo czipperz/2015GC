@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.Joystick;
  * @author Chris G.
  * ASF #LAG
  */
-public class Controller {
+//extends Joystick so that buttons can still work in OI @Christopher
+public class Controller extends Joystick {
 	/**
 	 * Da joystick
 	 */
@@ -18,35 +19,22 @@ public class Controller {
 	 * @param porterino
 	 */
 	public Controller(int porterino) {
+		super(porterino);
 		j = new Joystick(porterino);
 	}
 	
 	/**
 	 * Left x
 	 */
-	public double getX() {
-		return j.getX();
+	public double getLX() {
+		return j.getRawAxis(0);
 	}
 	
 	/**
 	 * Left y
 	 */
 	public double getLY() {
-		return -j.getY();
-	}
-	
-	/**
-	 * Left x
-	 */
-	public double getLX() {
-		return j.getX();
-	}
-	
-	/**
-	 * Left y
-	 */
-	public double getY() {
-		return -j.getY();
+		return -j.getRawAxis(1);
 	}
 	
 	/**
@@ -67,30 +55,47 @@ public class Controller {
 	 * Left trigger
 	 */
 	public boolean getLT() {
-		return (j.getRawAxis(2)>.75);
+		return (j.getRawAxis(2)<-.75);
 	}
+	
+	public double getTriggersRaw() {
+		return j.getRawAxis(2);
+	}
+	
 	/**
 	 * Right trigger
 	 */
 	public boolean getRT() {
-		return (j.getRawAxis(3)>.75);
+		return (j.getRawAxis(2)>.75);
 	}
+	
 
 	/**
 	 * Left Button (above trigger)
 	 */
 	public boolean getLB() {
-		return j.getRawButton(5);
+		return j.getRawButton(4);
 	}
 	
 	/**
 	 * Right button (above trigger)
 	 */
 	public boolean getRB() {
-		return j.getRawButton(6);
+		return j.getRawButton(5);
 	}
 	
 	public boolean getRawButton(int b){
 		return j.getRawButton(b);
 	}
+
+	public double getTriggersAsAxis() {
+		return j.getRawAxis(2)-j.getRawAxis(3);
+	}
+
+	public double getModZ() {
+		double d = (j.getZ() - 1)/2;
+		return d;
+	}
+	
+	
 }

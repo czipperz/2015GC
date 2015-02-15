@@ -2,8 +2,7 @@ package org.usfirst.frc.team997.robot.commands;
 
 
 
-import static org.usfirst.frc.team997.robot.Robot.myGatherer;
-
+import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.subsystems.Gatherer;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,8 +15,7 @@ public class GatherIn extends Command {
     public GatherIn() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(myGatherer);
-    	
+    	requires(Robot.myGatherer());
     }
 
     // Called just before this Command runs the first time
@@ -26,8 +24,7 @@ public class GatherIn extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	Gatherer.in();
+    	Robot.myGatherer().in();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,12 +34,12 @@ public class GatherIn extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Gatherer.stop();
+    	Robot.myGatherer().stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Gatherer.stop();
+    	Robot.myGatherer().stop();
     }
 }
