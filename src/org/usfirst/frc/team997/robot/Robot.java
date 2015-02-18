@@ -33,9 +33,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -76,7 +78,8 @@ public class Robot extends IterativeRobot {
 			try {myGatherer = new Gatherer(
 					new DoubleSolenoid(RobotMap.gatherSol1, RobotMap.gatherSol2),
 					new Talon(RobotMap.gathererLeft),
-					new Talon(RobotMap.gathererRight)
+					new Talon(RobotMap.gathererRight),
+					RobotMap.ultrasonicSlot
 					);
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -121,7 +124,8 @@ public class Robot extends IterativeRobot {
 					);
 			} catch(Exception e) {
 				e.printStackTrace();
-				System.out.println("subDriveTrain");
+				System.out.println("subDriveTrain")
+				;
 			}
 		}
 		return subDriveTrain;
@@ -138,11 +142,12 @@ public class Robot extends IterativeRobot {
 	 */
 	
 	CameraServer server;
-
+	SendableChooser AutoChooser = new SendableChooser();
 	public void robotInit() {
 		oi = new OI();
 		// instantiate the command used for the autonomous period
-		autonomousCommand = new AutonomousCommandGroup();
+		AutoChooser.addDefault("Normal", new AutonomousCommandGroup());
+		AutoChooser.addObject("nothing", null);
 		compressor().start();
         pdp().clearStickyFaults();
         compressor().clearAllPCMStickyFaults();
@@ -151,6 +156,8 @@ public class Robot extends IterativeRobot {
 		server.setQuality(50);
 //		// the camera name (ex "cam0") can be found through the roborio web interface
 		server.startAutomaticCapture("cam1");
+		subDriveTrain().gyroInit();
+		subDriveTrain().shift(1);
 	}
 
 	public void disabledPeriodic() {
@@ -159,6 +166,7 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		autonomousCommand = (Command) AutoChooser.getSelected();
 		if (autonomousCommand != null) autonomousCommand.start();
 	}
 
@@ -167,6 +175,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard();
 	}
 
 	public void teleopInit() {

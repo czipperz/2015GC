@@ -60,7 +60,7 @@ public class Elevator extends PIDSubsystem {
     }
     
     protected void usePIDOutput(double output) {
-      mySpeedController.set(output);
+      mySpeedController.set(.5*output);
     }
     public void setPIDtarget(double target){
     	setSetpoint(target);

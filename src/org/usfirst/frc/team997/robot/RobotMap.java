@@ -41,7 +41,8 @@ public class RobotMap {
 	public static final int leftDriveEncoder2 = 6;
 	
 	// analog input
-	public static final int gyroSlot = 0;
+	public static final int gyroSlot = 1;
+	public static final int ultrasonicSlot = 3;
 	
 	// pneumatics
 	public static final int ElevatorSolenoidFore = 2;
@@ -52,6 +53,7 @@ public class RobotMap {
 	public static int gatherSol2 = 5;
 	
 	// constants
+	public static double GyroSensitivity = .007;
 	public static final int defaultDriveMode = Drivetrain.AccelorationMode;
 	public static final double driveVelCal = .1;
 	public static final double maxAccelDrive = 1;
@@ -64,7 +66,11 @@ public class RobotMap {
 	public static final double DriveTrainDistancePerPulse =.000030409;
 	public static final double absuluteElevatorTolerance = .02;
 	public static final double percentTolerance = 2;
-	public static final double ElevatorMaxCurrent = 2000;
+	public static final double ElevatorMaxCurrent = 65;
+	public static final int ElevatorMotorCurrentSlot1 = 12;
+	public static final int ElevatorMotorCurrentSlot2 = 13;
+	public static final double CalibrationUltrasonic = 102.396;
+	
 
 	
 
