@@ -23,10 +23,9 @@ public class DriveStraight extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double error = .05*Robot.subDriveTrain().getGyro();
     	
-    	double leftSpeed = .4+error;
-    	double rightSpeed = .4-error;
+    	double leftSpeed = .8;
+    	double rightSpeed = .8;
     			
     	SmartDashboard.putNumber("leftSpeedGyro", leftSpeed);
     	SmartDashboard.putNumber("Right Speed Gyro", rightSpeed);
@@ -35,7 +34,7 @@ public class DriveStraight extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return ((Robot.subDriveTrain().getLeftEncoder() + Robot.subDriveTrain().getRightEncoder())/2)>.3;
+    	return false;
     }
 
     // Called once after isFinished returns true

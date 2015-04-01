@@ -15,7 +15,7 @@ public class zeroElevator extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.myElevator().setVoltage(.5);
+		Robot.myElevator().setVoltage(.8);
 	}
 	
 	@Override

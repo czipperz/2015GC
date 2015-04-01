@@ -54,9 +54,9 @@ public class RobotMap {
 	
 	// constants
 	public static double GyroSensitivity = .007;
-	public static final int defaultDriveMode = Drivetrain.AccelorationMode;
+	public static final int defaultDriveMode = Drivetrain.VelocityMode;
 	public static final double driveVelCal = .1;
-	public static final double maxAccelDrive = 1;
+	public static final double maxAccelDrive = 2;
 	public static final double pElev = 10;
 	public static final double iElev = 0;
 	public static final double dElev = 0;

@@ -8,7 +8,8 @@ import org.usfirst.frc.team997.robot.commands.ElevatorPosition;
 import org.usfirst.frc.team997.robot.commands.ElevatorRaw;
 import org.usfirst.frc.team997.robot.commands.GatherIn;
 import org.usfirst.frc.team997.robot.commands.GatherOut;
-import org.usfirst.frc.team997.robot.commands.Rotate;
+import org.usfirst.frc.team997.robot.commands.GatherRotate;
+import org.usfirst.frc.team997.robot.commands.RotateClockwise;
 import org.usfirst.frc.team997.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team997.robot.commands.SetGatherSolenoid;
 import org.usfirst.frc.team997.robot.commands.SetGatherSolenoidToggle;
@@ -31,20 +32,24 @@ public class OI {
 	public Button shiftButton;
 	public Button GatherOutButton;
 	public Button GatherInButton;
+	public Button GatherRotateButton;
+	
 	
 	public OI () {
 		myController = new Controller(0);
 		jumpPad = new Controller(1);
 		
+		setSolenoidButton = new JoystickButton(myController, 1);
 		shiftButton = new JoystickButton(myController, 3);
 		GatherInButton = new JoystickButton(myController, 5);
 		GatherOutButton = new JoystickButton(myController, 6);
-		setSolenoidButton = new JoystickButton(myController, 1);
+		GatherRotateButton = new JoystickButton(myController, 2);
 		
 		setSolenoidButton.whenPressed(new SetGatherSolenoidToggle());
 		shiftButton.whenPressed(new ToggleShift());
 		GatherInButton.whileHeld(new GatherIn());
 		GatherOutButton.whileHeld(new GatherOut());
+		GatherRotateButton.whileHeld(new GatherRotate());
 		
 		SmartDashboard.putData("TogggleShift", new ToggleShift());
 		SmartDashboard.putData("ManipulatorShift toggle", new SetGatherSolenoidToggle());
@@ -55,11 +60,11 @@ public class OI {
 		SmartDashboard.putData("ElevatorPosition", new ElevatorPosition());
 		SmartDashboard.putData("ElevatorRaw", new ElevatorRaw());
 		SmartDashboard.putData("DriveStright", new DriveStraight());
-		SmartDashboard.putData("Turn 60", new Rotate(60));
-		SmartDashboard.putData("Turn 30", new Rotate(30));
-		SmartDashboard.putData("Turn 90", new Rotate(90));
-		SmartDashboard.putData("Turn 120", new Rotate(120));
-		SmartDashboard.putData("Turn 150", new Rotate(150));
+//		SmartDashboard.putData("Turn 60", new Rotate(60));
+//		SmartDashboard.putData("Turn 30", new Rotate(30));
+//		SmartDashboard.putData("Turn 90", new Rotate(90));
+//		SmartDashboard.putData("Turn 120", new Rotate(120));
+//		SmartDashboard.putData("Turn 150", new Rotate(150));
 		SmartDashboard.putData("SetElev.5", new SetElevatorPosition(.5));
 		SmartDashboard.putData("SetElev1", new SetElevatorPosition(1));
 		SmartDashboard.putData("SetElev.75", new SetElevatorPosition(.75));
@@ -92,12 +97,12 @@ public class OI {
 	}
 
 	public void SmartDashboard() {
-		SmartDashboard.putNumber("left X", myController.getLX());
-		SmartDashboard.putNumber("right X", myController.getRX());
-		SmartDashboard.putNumber("left y", myController.getLY());
-		SmartDashboard.putNumber("right y", myController.getRY());
-		SmartDashboard.putNumber("desired arcade left", getDesiredArcadeLeftSpeed());
-		SmartDashboard.putNumber("desired arcade right", getDesiredArcadeRightSpeed());
+//		SmartDashboard.putNumber("left X", myController.getLX());
+//		SmartDashboard.putNumber("right X", myController.getRX());
+//		SmartDashboard.putNumber("left y", myController.getLY());
+//		SmartDashboard.putNumber("right y", myController.getRY());
+//		SmartDashboard.putNumber("desired arcade left", getDesiredArcadeLeftSpeed());
+//		SmartDashboard.putNumber("desired arcade right", getDesiredArcadeRightSpeed());
 		
 	}
 

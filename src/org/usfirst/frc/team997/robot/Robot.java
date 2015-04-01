@@ -14,10 +14,11 @@ import static org.usfirst.frc.team997.robot.RobotMap.leftDrive;
 import static org.usfirst.frc.team997.robot.RobotMap.pElev;
 import static org.usfirst.frc.team997.robot.RobotMap.rightDrive;
 
-import javax.swing.JDialog;
-
-import org.usfirst.frc.team997.robot.commands.AutonomousCommandGroup;
-import org.usfirst.frc.team997.robot.commands.zeroElevator;
+import org.usfirst.frc.team997.robot.commands.DriveStraightCommand;
+import org.usfirst.frc.team997.robot.commands.SingleToteClockBump;
+import org.usfirst.frc.team997.robot.commands.SingleToteClockNoBump;
+import org.usfirst.frc.team997.robot.commands.SingleToteCounterClockBump;
+import org.usfirst.frc.team997.robot.commands.SingleToteCounterClockNoBump;
 import org.usfirst.frc.team997.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team997.robot.subsystems.Elevator;
 import org.usfirst.frc.team997.robot.subsystems.ElevatorSpeedController;
@@ -33,11 +34,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -146,8 +147,13 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		// instantiate the command used for the autonomous period
-		AutoChooser.addDefault("Normal", new AutonomousCommandGroup());
-		AutoChooser.addObject("nothing", null);
+		AutoChooser.addDefault("1 tote, counterclockwise, NO BUMB", new SingleToteCounterClockNoBump());
+		AutoChooser.addObject("1 tote, clockwise, NO BUMB", new SingleToteClockNoBump());
+		AutoChooser.addObject("1 tote, counterclockwise, BUMB", new SingleToteCounterClockBump());
+		AutoChooser.addObject("1 tote, clockwise, BUMB", new SingleToteClockBump());
+		AutoChooser.addObject("drive straight", new DriveStraightCommand());
+		AutoChooser.addObject("do nothing", null);
+		SmartDashboard.putData("Autonomous?", AutoChooser);
 		compressor().start();
         pdp().clearStickyFaults();
         compressor().clearAllPCMStickyFaults();
@@ -166,6 +172,7 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		subDriveTrain.shift(1);
 		autonomousCommand = (Command) AutoChooser.getSelected();
 		if (autonomousCommand != null) autonomousCommand.start();
 	}
@@ -211,9 +218,9 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void SmartDashboard() {
-		myGatherer().SmartDashboard();
-		oi.SmartDashboard();
-		subDriveTrain().SmartDashboard();
-		myElevator().SmartDashboard();
+//		myGatherer().SmartDashboard();
+//		oi.SmartDashboard();
+//		subDriveTrain().SmartDashboard();
+//		myElevator().SmartDashboard();
 	}
 }

@@ -7,14 +7,23 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Rotate extends Command {
+public class RotateClockwise extends Command {
 	private double actAngle;
-    public Rotate(double angle) {
+	private boolean mClockwise;
+    public RotateClockwise(double angle, boolean clockwise) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.subDriveTrain());
-        actAngle = ((-.08*angle*angle) + (6.69925*angle) - (116.35));
-        
-        actAngle = -(actAngle);
+        actAngle = angle;
+        if (actAngle == 180){
+        	actAngle = 180;
+        }
+        if(actAngle == 90) {
+        	actAngle = 65;
+        }
+        mClockwise = clockwise;
+        	if (mClockwise) {
+        		actAngle = -(actAngle);
+        	}
         }
 
     // Called just before this Command runs the first time
@@ -24,7 +33,8 @@ public class Rotate extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.subDriveTrain().drive(.5, -.5);
+    	
+    	Robot.subDriveTrain().drive((.7), (-.7));
     }
 
     // Make this return true when this Command no longer needs to run execute()

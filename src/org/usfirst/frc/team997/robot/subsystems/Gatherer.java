@@ -47,6 +47,11 @@ public class Gatherer extends Subsystem {
 		gatherMotorLeft.set(1);
 		gatherMotorRight.set(1);
 	}
+	
+	public void rotate() {
+		gatherMotorLeft.set(1);
+		gatherMotorRight.set(-1);
+	}
 
 	public void stop() {
 		gatherMotorLeft.set(0);
