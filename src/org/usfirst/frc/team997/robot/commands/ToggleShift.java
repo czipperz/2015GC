@@ -1,15 +1,17 @@
 package org.usfirst.frc.team997.robot.commands;
 
+import org.usfirst.frc.team997.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class TankDrive extends Command {
+public class ToggleShift extends Command {
 
-    public TankDrive() {
+    public ToggleShift() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(Robot.subDriveTrain());
     }
 
     // Called just before this Command runs the first time
@@ -18,11 +20,16 @@ public class TankDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(Robot.subDriveTrain().gear == 0) {
+    		Robot.subDriveTrain().shift(1);
+    	} else if(Robot.subDriveTrain().gear == 1) {
+    		Robot.subDriveTrain().shift(0);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

@@ -1,36 +1,29 @@
 package org.usfirst.frc.team997.robot.commands;
 
-import static org.usfirst.frc.team997.robot.Robot.subDriveTrain;
-
 import org.usfirst.frc.team997.robot.Robot;
+import org.usfirst.frc.team997.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ArcadeDrive extends Command {
-
-    public ArcadeDrive() {
-       requires(subDriveTrain());
+public class ElevatorPosition extends Command {
+    public ElevatorPosition() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.myElevator());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	Robot.myElevator().setPIDtarget(0);
+    	Robot.myElevator().enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double max = 1;
-    	if (max < Math.abs(Robot.oi.getDesiredArcadeLeftSpeed())){
-    		max = Math.abs(Robot.oi.getDesiredArcadeLeftSpeed());
-    	}
-    	if (max < Math.abs(Robot.oi.getDesiredArcadeRightSpeed())){
-    		max = Math.abs(Robot.oi.getDesiredArcadeRightSpeed());
-    	}
-    	
-    	subDriveTrain().drive(Robot.oi.getDesiredArcadeLeftSpeed()/max, Robot.oi.getDesiredArcadeRightSpeed()/max);
+    	Robot.myElevator().setPIDtarget(Robot.oi.getDesiredElevatorPosition());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,12 +33,17 @@ public class ArcadeDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	subDriveTrain().drive(0, 0);
+    	Robot.myElevator().disable();
+
     }
+    
+    private double getElevatorCurrent() {
+		return Robot.pdp().getCurrent(RobotMap.ElevatorMotorSlot);
+	}
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	subDriveTrain().drive(0, 0);
+    	Robot.myElevator().disable();
     }
 }
